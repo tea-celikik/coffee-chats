@@ -1,3 +1,5 @@
+import { SlotsController } from './slots/slots.controller';
+import { SlotsService } from './slots/slots.service';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,8 +21,9 @@ import { Booking } from './bookings/booking.entity';
         synchronize: true, // auto-creates tables from entities, dev only, use migrations in prod
       }),
     }),
+    TypeOrmModule.forFeature([Slot, Booking]), // makes Repository<Slot> injectable
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, SlotsController],
+  providers: [AppService, SlotsService],
 })
 export class AppModule {}
