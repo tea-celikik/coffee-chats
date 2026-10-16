@@ -1,18 +1,23 @@
 import { Module } from '@nestjs/common';
-import { createObserveModule } from '@nestjs/observe';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-export const { ObserveModule, ObserveInstrument } = createObserveModule();
+import { Slot } from './slots/slot.entity';
+import { Booking } from './bookings/booking.entity';
 
 @Module({
   imports: [
-    // Distributed tracing, auto-correlated logs, request/job metrics, error
-    // telemetry, alarms, and more — out of the box. Sign up at https://observe.nestjs.com
-    ObserveModule.forRoot({
-      appKey: 'YOUR_APP_KEY',
-      appSecret: 'YOUR_APP_SECRET',
-      serviceId: 'backend',
+    ConfigModule.forRoot({ isGlobal: true }), // loads .env, available in every module
+    // Async so the DB config is read from .env at startup, not hardcoded
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        type: 'postgres',
+        url: config.getOrThrow<string>('DATABASE_URL'), // fail fast if missing
+        entities: [Slot, Booking],
+        synchronize: true, // auto-creates tables from entities, dev only, use migrations in prod
+      }),
     }),
   ],
   controllers: [AppController],
