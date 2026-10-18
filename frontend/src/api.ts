@@ -52,3 +52,19 @@ export const api = {
   book: (slotId: string, data: { name: string; email: string; note?: string }) =>
     request<BookingResult>(`/slots/${slotId}/bookings`, { method: 'POST', body: JSON.stringify(data) }),
 };
+
+// ---- Host (requires the x-host-key header) ----
+
+export interface HostSlot {
+  id: string;
+  startsAt: string;
+  durationMinutes: number;
+  booking: { name: string; email: string; note: string | null; createdAt: string } | null;
+}
+
+export const hostApi = {
+  list: (key: string) => request<HostSlot[]>('/host/slots', {}, key),
+  create: (key: string, data: { startsAt: string; durationMinutes: number }) =>
+    request<HostSlot>('/host/slots', { method: 'POST', body: JSON.stringify(data) }, key),
+  remove: (key: string, id: string) => request<void>(`/host/slots/${id}`, { method: 'DELETE' }, key),
+};
