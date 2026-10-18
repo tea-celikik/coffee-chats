@@ -7,6 +7,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Slot } from './slots/slot.entity';
 import { Booking } from './bookings/booking.entity';
+import { BookingsController } from './bookings/bookings.controller';
+import { BookingsService } from './bookings/bookings.service';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import { Booking } from './bookings/booking.entity';
     }),
     TypeOrmModule.forFeature([Slot, Booking]), // makes Repository<Slot> injectable
   ],
-  controllers: [AppController, SlotsController],
-  providers: [AppService, SlotsService],
+  controllers: [AppController, SlotsController, BookingsController],
+  providers: [AppService, SlotsService, BookingsService],
 })
 export class AppModule {}
