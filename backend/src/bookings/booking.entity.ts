@@ -25,5 +25,8 @@ export class Booking {
   note!: string | null;
 
   @CreateDateColumn({ type: 'timestamptz' })
+  // AI message shown to the guest, nullable because older rows don't have it
+  @Column({ type: 'text', nullable: true })
+  confirmationMessage!: string | null;
   createdAt!: Date;
 }
