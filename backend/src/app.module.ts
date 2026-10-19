@@ -3,8 +3,6 @@ import { SlotsService } from './slots/slots.service';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { Slot } from './slots/slot.entity';
 import { Booking } from './bookings/booking.entity';
 import { BookingsController } from './bookings/bookings.controller';
@@ -26,7 +24,7 @@ import { AiService } from './ai/ai.service';
     }),
     TypeOrmModule.forFeature([Slot, Booking]), // makes Repository<Slot> injectable
   ],
-  controllers: [AppController, SlotsController, BookingsController],
-  providers: [AppService, SlotsService, BookingsService, AiService],
+  controllers: [SlotsController, BookingsController],
+  providers: [SlotsService, BookingsService, AiService],
 })
 export class AppModule {}
