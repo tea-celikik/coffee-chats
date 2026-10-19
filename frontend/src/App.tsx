@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import GuestPage from './GuestPage';
 import HostPage from './HostPage';
 
-// Tiny hash router: "#/host" shows the host page, anything else the guest page.
-// Hash routing needs no server config, so it works on any static host.
+// Tiny hash router: "Host" shows the host page, anything else the guest page
+// Hash routing needs no server config, so it works on any static host
 const currentRoute = () => (window.location.hash === '#/host' ? 'host' : 'guest');
 
 export default function App() {

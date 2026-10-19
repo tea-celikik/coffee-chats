@@ -4,8 +4,8 @@ import { groupByDay, timeLabel } from './format';
 
 const KEY_STORAGE = 'coffee-host-key';
 
-// sessionStorage: the key is forgotten when the tab closes (safer than localStorage).
-// try/catch because storage can throw in private mode or when blocked.
+// sessionStorage: the key is forgotten when the tab closes
+// try/catch because storage can throw in private mode or when blocked
 const loadKey = () => { try { return sessionStorage.getItem(KEY_STORAGE) ?? ''; } catch { return ''; } };
 const saveKey = (k: string) => { try { sessionStorage.setItem(KEY_STORAGE, k); } catch { /* ignore */ } };
 const clearKey = () => { try { sessionStorage.removeItem(KEY_STORAGE); } catch { /* ignore */ } };
@@ -17,7 +17,7 @@ export default function HostPage() {
   return <Dashboard hostKey={hostKey} onLock={() => { clearKey(); setHostKey(''); }} />;
 }
 
-// --- Step 1: ask for the host key and check it against the server ---------
+// Step 1: ask for the host key and check it against the server
 function KeyGate({ onUnlock }: { onUnlock: (key: string) => void }) {
   const [key, setKey] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -52,7 +52,7 @@ function KeyGate({ onUnlock }: { onUnlock: (key: string) => void }) {
   );
 }
 
-// --- Step 2: create slots and see who booked them ---------------------------
+// Step 2: create slots and see who booked them
 function Dashboard({ hostKey, onLock }: { hostKey: string; onLock: () => void }) {
   const [slots, setSlots] = useState<HostSlot[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -137,7 +137,7 @@ function Dashboard({ hostKey, onLock }: { hostKey: string; onLock: () => void })
   );
 }
 
-// Tomorrow's date as YYYY-MM-DD in local time (default for the date input)
+// Tomorrow's date as YYYY-MM-DD in local time
 const tomorrow = () => {
   const d = new Date();
   d.setDate(d.getDate() + 1);

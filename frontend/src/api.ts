@@ -1,4 +1,4 @@
-// Backend URL; can be overridden with VITE_API_URL in frontend/.env
+// Backend URL: can be overridden with VITE_API_URL in frontend/.env
 const BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
 
 export interface PublicSlot {
@@ -13,7 +13,7 @@ export interface BookingResult {
   name: string;
   startsAt: string;
   durationMinutes: number;
-  confirmationMessage?: string; // added in step 7 (AI)
+  confirmationMessage?: string; 
 }
 
 // Error that keeps the HTTP status, so the UI can react differently to 409 vs 400
@@ -33,7 +33,7 @@ async function request<T>(path: string, init: RequestInit = {}, hostKey?: string
   try {
     res = await fetch(BASE + path, { ...init, headers });
   } catch {
-    // fetch only throws on network failure (server down, CORS, offline)
+    // fetch only throws on network failure
     throw new ApiError(0, "Can't reach the server. Is the backend running?");
   }
 
@@ -53,7 +53,7 @@ export const api = {
     request<BookingResult>(`/slots/${slotId}/bookings`, { method: 'POST', body: JSON.stringify(data) }),
 };
 
-// ---- Host (requires the x-host-key header) ----
+// Host (requires the x-host-key header)
 
 export interface HostSlot {
   id: string;

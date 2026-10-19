@@ -1,4 +1,4 @@
-// undefined locale = use the visitor's browser language and time zone
+// undefined locale: use the visitor's browser language and time zone
 export const dayLabel = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
 
