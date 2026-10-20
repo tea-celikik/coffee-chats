@@ -4,6 +4,11 @@ A small scheduling app for booking coffee chats. The host publishes open time sl
 
 Built for the TeamLift Product Engineer Internship challenge.
 
+**Live demo:** https://coffee-chats-sand.vercel.app
+(the backend runs on Render's free tier and sleeps when idle, so the first request can take 30–50 seconds)
+
+Hosting: frontend on Vercel, NestJS API on Render, PostgreSQL on Neon.
+
 ## Features
 
 - **Guests** see upcoming times grouped by day, clearly marked as free or taken, and book with name, email and an optional chat topic.
